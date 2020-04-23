@@ -1,0 +1,333 @@
+%YAML 1.2
+---
+name: WriteML
+scope: text.writeml
+
+contexts:
+  # REGION - MAIN
+
+  main:
+    # Blank Lines
+    - match: '^\s*$'
+      scope: meta.blank-line.writeml
+
+    # Configuration Blocks
+    - include: configuration-block
+
+    # Section Dividers
+    - include: section-dividers
+
+    # Text Blocks
+    - include: text-block-modifiers
+    - include: verse-block
+    - include: line-block
+    - include: paragraph
+
+  # REGION - SECTION DIVIDERS
+
+  section-dividers:
+    # Scene Break
+    - match: '^(\s*#\s*){1}$'
+      scope: meta.scene-break.writeml markup.token.writeml
+
+    # Scene Change
+    - match: '^(\s*#\s*){2}$'
+      scope: meta.scene-change.writeml markup.token.writeml
+
+    # The End
+    - match: '^(\s*#\s*){3}$'
+      scope: markup.token.writeml
+      push:
+        - meta_scope: meta.the-end.writeml
+
+        # Configuration Block
+        - include: configuration-block
+
+        # Notes/Comments Text
+        - include: inline-text
+
+    # Section Header
+    - match: '^(\s*#\s*)([^#]+?)(\s*#\s*)?$'
+      captures:
+        0: meta.heading.writeml
+        1: markup.token.begin.writeml
+        2: markup.text.writeml
+        3: markup.token.end.writeml
+
+  # REGION - TEXT BLOCKS
+
+  # Text Block Modifiers
+  text-block-modifiers:
+    # Center Line Block
+    - match: '^\s*(\[)(center)(\])\s*$'
+      captures:
+        1: markup.token.writeml
+        2: markup.tag.writeml
+        3: markup.token.writeml
+
+  # Verse Block
+  verse-block:
+    - match: '(?=^\s*\|\|)'
+      push:
+        - meta_scope: meta.verse.writeml
+
+        # Blank Line
+        - include: pop-blank-line
+
+        # Line Start Tokens
+        - match: '^\s*\|\|'
+          scope: markup.token.writeml
+
+        # Text Spans
+        - include: emphasis
+        - include: offset
+
+        # Reference Spans
+        - include: tk
+
+        # Text
+        - include: inline-text
+
+  # Line Block
+  line-block:
+    - match: '(?=^\s*\|)'
+      push:
+        - meta_scope: meta.line-block.writeml
+
+        # Blank Line
+        - include: pop-blank-line
+
+        # Line Start Tokens
+        - match: '^\s*\|'
+          scope: markup.token.writeml
+
+        # Text Spans
+        - include: emphasis
+        - include: offset
+
+        # Reference Spans
+        - include: tk
+
+        # Text
+        - include: inline-text
+
+  # Paragraph
+  paragraph:
+    - match: '(?=.)'
+      push:
+        - meta_scope: meta.paragraph.writeml
+
+        # Blank Line
+        - include: pop-blank-line
+
+        # Text Spans
+        - include: alternate-voice
+        - include: emphasis
+        - include: offset
+
+        # Reference Spans
+        - include: tk
+        - include: link
+
+        # Text
+        - include: inline-text
+
+  # REGION - TEXT SPANS
+
+  # Alternate Voice
+  alternate-voice:
+    - match: '(\[)(av)(\])'
+      captures:
+        1: markup.token.writeml
+        2: markup.tag.writeml
+        3: markup.token.writeml
+      push:
+        - meta_scope: inline.alternate-voice.writeml
+
+        # Text Part
+        - match: '\['
+          scope: markup.token.writeml
+          push:
+            # Blank Line
+            - include: pop-blank-line
+
+            # Nested Text Spans
+            - include: emphasis
+            - include: offset
+
+            # Closing Bracket
+            - include: pop-closing-bracket
+
+            # Text
+            - include: inline-text
+
+        # Anything Else
+        - include: pop-anything
+
+  # Emphasis
+  emphasis:
+    - match: '(\[)(em)(\])'
+      captures:
+        1: markup.token.writeml
+        2: markup.tag.writeml
+        3: markup.token.writeml
+      push:
+        - meta_scope: inline.emphasis.writeml
+
+        # Text Part
+        - match: '\['
+          scope: markup.token.writeml
+          push:
+            # Blank Line
+            - include: pop-blank-line
+
+            # Closing Bracket
+            - include: pop-closing-bracket
+
+            # End of Line
+            - include: pop-eol
+
+            # Text
+            - include: inline-text
+
+        # Anything Else
+        - include: pop-anything
+
+  # Offset
+  offset:
+    - match: '(\[)(oem)(\])'
+      captures:
+        1: markup.token.writeml
+        2: markup.tag.writeml
+        3: markup.token.writeml
+      push:
+        - meta_scope: inline.offset.writeml
+
+        # Text Part
+        - match: '\['
+          scope: markup.token.writeml
+          push:
+            # Blank Line
+            - include: pop-blank-line
+
+            # Closing Bracket
+            - include: pop-closing-bracket
+
+            # End of Line
+            - include: pop-eol
+
+            # Text
+            - include: inline-text
+
+        # Anything Else
+        - include: pop-anything
+
+  # REGION - REFERENCE SPANS
+
+  # IDK TK
+  tk:
+    - match: '(\[)(tk)(\])'
+      captures:
+        1: markup.token.writeml
+        2: markup.tag.writeml
+        3: markup.token.writeml
+      push:
+        - meta_scope: inline.tk.writeml
+
+        # Text Part
+        - match: '\['
+          scope: markup.token.writeml
+          push:
+            # Blank Line
+            - include: pop-blank-line
+
+            # Closing Bracket
+            - include: pop-closing-bracket
+
+            # End of Line
+            - include: pop-eol
+
+            # Notes/Comments Text
+            - include: inline-text
+
+        # Anything Else
+        - include: pop-anything
+
+  # Link
+  link:
+    # Shortcut (No Text)
+    - match: '(\[)(link-[^\]]+?)(\])(?!\[)'
+      scope: inline.link-shortcut.writeml
+      captures:
+        1: markup.token.writeml
+        2: markup.tag.writeml
+        3: markup.token.writeml
+
+    # With Text
+    - match: '(\[)(link-[^\]]+?)(\])'
+      captures:
+        1: markup.token.writeml
+        2: markup.tag.writeml
+        3: markup.token.writeml
+      push:
+        - meta_scope: inline.link.writeml
+
+        # Text Part
+        - match: '\['
+          scope: markup.token.writeml
+          push:
+            # Blank Line
+            - include: pop-blank-line
+
+            # Closing Bracket
+            - include: pop-closing-bracket
+
+            # Text
+            - include: inline-text
+
+        # Anything Else
+        - include: pop-anything
+
+  # REGION - MISCELLANEOUS
+
+  # Pop Before Blank Line
+  pop-blank-line:
+    - match: '(?=^\s*$)'
+      pop: true
+
+  # Pop On Closing Bracket
+  pop-closing-bracket:
+    - match: '\]'
+      scope: markup.token.writeml
+      pop: true
+
+  # Pop Before End of Line
+  pop-eol:
+    - match: '(?=^\s*\|)'
+      pop: true
+
+  # Pop On Anything
+  pop-anything:
+    - match: ''
+      pop: true
+
+  # Text
+  inline-text:
+    - match: '.'
+      scope: markup.text.writeml
+
+  # Configuration Block
+  configuration-block:
+    - match: '^\s*---\s*$'
+      scope: markup.token.begin.writeml
+      push:
+        - meta_scope: meta.configuration-block.writeml
+        - meta_content_scope: source.toml
+
+        # Closing Line
+        - match: '^\s*---\s*$'
+          scope: markup.token.end.writeml
+          pop: true
+
+        # TOML
+        - include: scope:source.toml

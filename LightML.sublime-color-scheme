@@ -1,0 +1,201 @@
+// https://www.sublimetext.com/docs/3/color_schemes.html
+
+{
+    "name": "LightML",
+    "author": "WriteML",
+
+    "variables":
+    {
+        "white100": "#FBFBFB",
+
+        "black100": "#080808",
+        "black90": "color(var(black100) alpha(0.9))",
+
+        "grey100": "#808080",
+        "grey90": "color(var(grey100) alpha(0.9))",
+        "grey60": "color(var(grey100) alpha(0.6))",
+        "grey30": "color(var(grey100) alpha(0.3))",
+        "grey10": "color(var(grey100) alpha(0.1))",
+
+        "blue100": "#339FFF",
+        "blue70": "color(var(blue100) alpha(0.7))",
+        "blue60": "color(var(blue100) alpha(0.6))",
+        "blue35": "color(var(blue100) alpha(0.35))",
+        "blue20": "color(var(blue100) alpha(0.2))",
+        "blue10": "color(var(blue100) alpha(0.1))",
+
+        "red100": "#FF0000",
+        "pastelred100": "#EA4850",
+        "pastelred50": "color(var(pastelred100) alpha(0.7))",
+
+        "orange100": "#FF9000",
+        "orange50": "color(var(orange100) alpha(0.5))"
+    },
+
+    "globals":
+    {
+        // General
+
+        "foreground": "var(black100)",
+        "background": "var(white100)",
+        "caret": "var(black100)",
+        "block_caret": "var(blue20)",
+        "invisibles": "var(grey60)",
+
+        // Gutter / Current Line
+
+        "gutter": "var(white100)",
+        "gutter_foreground": "var(grey60)",
+
+        "line_diff_modified": "var(orange50)",
+        "line_diff_added": "var(blue35)",
+        "line_diff_deleted": "var(pastelred50)",
+
+        "line_highlight": "var(grey10)",
+
+        // Selection
+
+        "selection": "var(blue20)",
+        "selection_border": "var(blue10)",
+        "selection_corner_style": "square",
+        "inactive_selection": "var(grey10)",
+
+        // Find
+
+        "highlight": "var(grey60)",
+        "find_highlight": "var(grey10)",
+        "find_highlight_foreground": "var(black90)",
+
+        // Indent/Fold Guides
+
+        "guide": "var(grey30)",
+        "active_guide": "var(blue60)",
+        "stack_guide": "var(blue60)",
+        "fold_marker": "var(blue35)",
+
+        // Tag/Bracket Matching
+
+        "tags_options": "underline",
+        "tags_foreground": "var(blue60)",
+
+        "brackets_options": "underline",
+        "brackets_foreground": "var(blue70)",
+        "bracket_contents_options": "underline",
+        "bracket_contents_foreground": "var(blue70)",
+
+        // Misc
+
+        "accent": "var(blue60)",
+        "misspelling": "var(red100)",
+        "shadow": "var(white100)"
+    },
+
+    "rules":
+    [
+        // Markup
+
+        {
+            "name": "Tags & Tokens",
+            "scope": "markup.tag, markup.token",
+            "foreground": "var(grey100)"
+        },
+
+        {
+            "name": "Hash Tokens",
+            "scope": "meta.scene-break markup.token, meta.scene-change markup.token, meta.the-end markup.token, meta.heading markup.token",
+            "foreground": "var(grey90)"
+        },
+
+        {
+            "name": "Pipe Tokens",
+            "scope": "meta.line-block markup.token, meta.verse markup.token",
+            "foreground": "var(grey90)"
+        },
+
+        {
+            "name": "Notes/Comments Text",
+            "scope": "inline.tk markup.text, meta.the-end markup.text",
+            "foreground": "var(grey100)"
+        },
+
+        {
+            "name": "Section Header Text",
+            "scope": "meta.heading markup.text",
+            "font_style": "bold"
+        },
+
+        {
+            "name": "Alternate Voice Text",
+            "scope": "inline.alternate-voice markup.text",
+            "font_style": "italic"
+        },
+
+        {
+            "name": "Emphasis Text",
+            "scope": "inline.emphasis markup.text",
+            "font_style": "italic"
+        },
+
+        {
+            "name": "Alternate Voice Emphasis Text",
+            "scope": "inline.alternate-voice inline.emphasis markup.text",
+            "font_style": ""
+        },
+
+        {
+            "name": "Offset Text",
+            "scope": "inline.offset markup.text",
+            "font_style": "italic"
+        },
+
+        {
+            "name": "Alternate Voice Offset Text",
+            "scope": "inline.alternate-voice inline.offset markup.text",
+            "font_style": ""
+        },
+
+        {
+            "name": "TK Tags",
+            "scope": "inline.tk markup.tag",
+            "foreground": "var(orange100)"
+        },
+
+        {
+            "name": "Link Tags & Text",
+            "scope": "inline.link markup.text, inline.link-shortcut markup.tag",
+            "foreground": "var(blue100)"
+        },
+
+        // TOML
+
+        {
+            "name": "All",
+            "scope": "source.toml, source.toml punctuation.definition, source.toml meta.tag string",
+            "foreground": "var(grey100)"
+        },
+
+        {
+            "name": "Hash Tokens",
+            "scope": "source.toml comment punctuation.definition",
+            "foreground": "var(grey90)"
+        },
+
+        {
+            "name": "Constants (Bools, Numbers, Etc)",
+            "scope": "source.toml constant",
+            "foreground": "var(blue100)"
+        },
+
+        {
+            "name": "String Text",
+            "scope": "source.toml string",
+            "foreground": "var(black100)"
+        },
+
+        {
+            "name": "Invalid Markup",
+            "scope": "source.toml invalid",
+            "foreground": "var(pastelred100)"
+        }
+    ]
+}
