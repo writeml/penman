@@ -1,0 +1,15 @@
+[
+    // REGION - TOGGLE SYNTAX
+
+    {
+        "keys": [ "ctrl+alt+[" ],
+        "command": "penman_toggle_syntax",
+        "args": { "syntax": "text.writeml" }
+    },
+
+    {
+        "keys": [ "ctrl+alt+]" ],
+        "command": "penman_toggle_syntax",
+        "args": { "syntax": "source.writeml-toml" }
+    },
+]

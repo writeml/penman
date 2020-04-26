@@ -1,6 +1,7 @@
 %YAML 1.2
 ---
 name: WriteML
+file_extensions: [ wml.txt ]
 scope: text.writeml
 
 contexts:
@@ -322,7 +323,7 @@ contexts:
       scope: markup.token.begin.writeml
       push:
         - meta_scope: meta.configuration-block.writeml
-        - meta_content_scope: source.toml
+        - meta_content_scope: source.writeml-toml
 
         # Closing Line
         - match: '^\s*---\s*$'
@@ -330,4 +331,4 @@ contexts:
           pop: true
 
         # TOML
-        - include: scope:source.toml
+        - include: scope:source.writeml-toml

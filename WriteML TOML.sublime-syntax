@@ -1,0 +1,11 @@
+%YAML 1.2
+---
+name: WriteML TOML
+file_extensions: [ wml.toml ]
+scope: source.writeml-toml
+
+contexts:
+  # REGION - MAIN
+
+  main:
+    - match: '.'
