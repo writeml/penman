@@ -1,11 +1,21 @@
 {
-    // If set, will be used as the default location to save new files
-    // The standard Sublime Text behavior is to use its own install directory
-    // as the default directory
+    // When saving new files, Sublime Text sets the initial starting directory
+    // in the Save File dialog like so:
+    //
+    //   1) If none of the open files are saved to disk, then Sublime Text will
+    //      use its own install directory as the starting directory
+    //   2) Otherwise, Sublime Text will use the directory of the most recently
+    //      referenced file as the starting directory
+    //
+    // This option, if set, will replace item #1 above.
     "default_directory": "",
 
-    // If set, will be used as the default file extension when saving new
-    // plain-text files
-    // The standard Sublime Text behavior is to use "All Files (*.*)"
+    // When saving new plain-text files, Sublime Text does not set a default
+    // file extension in the Save File dialog; instead, the "All Files (*.*)"
+    // option is selected, and the user must either type the desired file
+    // extension after the file name, or select it from the dropdown.
+    //
+    // This option, if set, will instead be used as the default file extension
+    // when saving new plain-text files.
     "default_plain_text_extension": "",
 }
