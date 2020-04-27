@@ -17,5 +17,5 @@
     //
     // This option, if set, will instead be used as the default file extension
     // when saving new plain-text files.
-    "default_plain_text_extension": "",
+    "default_plain_text_extension": ""
 }

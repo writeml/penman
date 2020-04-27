@@ -29,7 +29,7 @@
         "pastelred50": "color(var(pastelred100) alpha(0.7))",
 
         "orange100": "#FF9000",
-        "orange50": "color(var(orange100) alpha(0.5))",
+        "orange50": "color(var(orange100) alpha(0.5))"
     },
 
     "globals":
@@ -87,7 +87,7 @@
 
         "accent": "var(blue60)",
         "misspelling": "var(red100)",
-        "shadow": "var(white100)",
+        "shadow": "var(white100)"
     },
 
     "rules":
@@ -97,73 +97,73 @@
         {
             "name": "Tags & Tokens",
             "scope": "markup.tag, markup.token",
-            "foreground": "var(grey100)",
+            "foreground": "var(grey100)"
         },
 
         {
             "name": "Hash Tokens",
             "scope": "meta.scene-break markup.token, meta.scene-change markup.token, meta.the-end markup.token, meta.heading markup.token",
-            "foreground": "var(grey90)",
+            "foreground": "var(grey90)"
         },
 
         {
             "name": "Pipe Tokens",
             "scope": "meta.line-block markup.token, meta.verse markup.token",
-            "foreground": "var(grey90)",
+            "foreground": "var(grey90)"
         },
 
         {
             "name": "Notes/Comments Text",
             "scope": "inline.tk markup.text, meta.the-end markup.text",
-            "foreground": "var(grey100)",
+            "foreground": "var(grey100)"
         },
 
         {
             "name": "Section Header Text",
             "scope": "meta.heading markup.text",
-            "font_style": "bold",
+            "font_style": "bold"
         },
 
         {
             "name": "Alternate Voice Text",
             "scope": "inline.alternate-voice markup.text",
-            "font_style": "italic",
+            "font_style": "italic"
         },
 
         {
             "name": "Emphasis Text",
             "scope": "inline.emphasis markup.text",
-            "font_style": "italic",
+            "font_style": "italic"
         },
 
         {
             "name": "Alternate Voice Emphasis Text",
             "scope": "inline.alternate-voice inline.emphasis markup.text",
-            "font_style": "",
+            "font_style": ""
         },
 
         {
             "name": "Offset Text",
             "scope": "inline.offset markup.text",
-            "font_style": "italic",
+            "font_style": "italic"
         },
 
         {
             "name": "Alternate Voice Offset Text",
             "scope": "inline.alternate-voice inline.offset markup.text",
-            "font_style": "",
+            "font_style": ""
         },
 
         {
             "name": "TK Tags",
             "scope": "inline.tk markup.tag",
-            "foreground": "var(orange100)",
+            "foreground": "var(orange100)"
         },
 
         {
             "name": "Link Tags & Text",
             "scope": "inline.link markup.text, inline.link-shortcut markup.tag",
-            "foreground": "var(blue100)",
+            "foreground": "var(blue100)"
         },
 
         // TOML
@@ -171,31 +171,31 @@
         {
             "name": "All",
             "scope": "source.toml, source.toml punctuation.definition, source.toml meta.tag string",
-            "foreground": "var(grey100)",
+            "foreground": "var(grey100)"
         },
 
         {
             "name": "Hash Tokens",
             "scope": "source.toml comment punctuation.definition",
-            "foreground": "var(grey90)",
+            "foreground": "var(grey90)"
         },
 
         {
             "name": "Constants (Bools, Numbers, Etc)",
             "scope": "source.toml constant",
-            "foreground": "var(blue100)",
+            "foreground": "var(blue100)"
         },
 
         {
             "name": "String Text",
             "scope": "source.toml string",
-            "foreground": "var(black100)",
+            "foreground": "var(black100)"
         },
 
         {
             "name": "Invalid Markup",
             "scope": "source.toml invalid",
-            "foreground": "var(pastelred100)",
-        },
+            "foreground": "var(pastelred100)"
+        }
     ]
 }
