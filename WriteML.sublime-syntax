@@ -1,5 +1,7 @@
 %YAML 1.2
 ---
+# https://www.sublimetext.com/docs/3/syntax.html
+
 name: WriteML
 file_extensions: [ wml.txt ]
 scope: text.writeml

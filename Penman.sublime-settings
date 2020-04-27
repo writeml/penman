@@ -1,0 +1,11 @@
+{
+    // If set, will be used as the default location to save new files
+    // The standard Sublime Text behavior is to use its own install directory
+    // as the default directory
+    "default_directory": "",
+
+    // If set, will be used as the default file extension when saving new
+    // plain-text files
+    // The standard Sublime Text behavior is to use "All Files (*.*)"
+    "default_plain_text_extension": "",
+}

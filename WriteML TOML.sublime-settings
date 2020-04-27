@@ -1,6 +1,8 @@
 {
     "color_scheme": "LightML.sublime-color-scheme",
 
+    "extensions": [ "wml.toml" ],
+
     "translate_tabs_to_spaces": true,
     "tab_size": 2,
     "use_tab_stops": false,

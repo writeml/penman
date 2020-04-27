@@ -10,13 +10,12 @@ syntax_map = {
 
 class PenmanToggleSyntaxCommand(sublime_plugin.TextCommand):
     def run(self, edit, syntax):
-        # do nothing if requested syntax not supported...
-        if (syntax not in syntax_map):
+        # do nothing if requested syntax not supported
+        if syntax not in syntax_map:
             print("Penman: Requested syntax '" + syntax + "' not recognized.")
             return;
         # end if
 
-        # ...else, toggle syntax
         view = self.view
         view_settings = view.settings()
         cache_key = "penman-cached-syntax"

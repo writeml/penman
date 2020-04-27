@@ -1,5 +1,7 @@
 %YAML 1.2
 ---
+# https://www.sublimetext.com/docs/3/syntax.html
+
 name: WriteML TOML
 file_extensions: [ wml.toml ]
 scope: source.writeml-toml
