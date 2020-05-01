@@ -24,6 +24,8 @@
         "blue20": "color(var(blue100) alpha(0.2))",
         "blue10": "color(var(blue100) alpha(0.1))",
 
+        "purple100": "#9F569F",
+
         "red100": "#FF0000",
         "pastelred100": "#EA4850",
         "pastelred50": "color(var(pastelred100) alpha(0.7))",
@@ -182,8 +184,8 @@
 
         {
             "name": "Constants (Bools, Numbers, Etc)",
-            "scope": "source.toml constant",
-            "foreground": "var(blue100)"
+            "scope": "source.writeml-toml constant",
+            "foreground": "var(purple100)"
         },
 
         {

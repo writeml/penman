@@ -44,13 +44,13 @@ def SetNewFileDefaults(view):
     # end if
 # end def
 
+def FileOnDisk(view):
+    return view.file_name() is not None
+# end def
+
 def AnyFilesOnDisk(view):
     return view.window() is not None and any(
         FileOnDisk
         for win_view in view.window().views()
     )
-# end def
-
-def FileOnDisk(view):
-    return view.file_name() is not None
 # end def
