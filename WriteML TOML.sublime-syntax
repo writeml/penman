@@ -10,4 +10,321 @@ contexts:
   # REGION - MAIN
 
   main:
-    - match: '.'
+    # Top-Level Comments
+    - include: comment
+
+    # Top-Level Key/Value Pairs
+    - include: document-key-value-pairs
+    - include: key-value-pair
+
+    # Tables
+    - include: document-table
+    - include: link-table
+    - include: table-array
+    - include: table
+
+  # REGION - TABLES
+
+  # [document]
+  document-table:
+    - match: '^\s*(\[)\s*(document)\s*(\])'
+      captures:
+        1: punctuation.token.begin.writeml-toml
+        2: inline.key.bare.writeml-toml
+        3: punctuation.token.end.writeml-toml
+      push:
+        - meta_scope: meta.table.document.writeml-toml
+
+        # Next Table
+        - include: pop-next-table
+
+        # Comments
+        - include: comment
+
+        # Table-Specific Key/Value Pairs
+        - include: document-key-value-pairs
+
+        # Any Other Key/Value Pairs
+        - include: key-value-pair
+
+  # [link-*]
+  link-table:
+    - match: '^\s*(\[)\s*(link-[A-Za-z0-9_\-]+)\s*(\])'
+      captures:
+        1: punctuation.token.begin.writeml-toml
+        2: inline.key.bare.writeml-toml
+        3: punctuation.token.end.writeml-toml
+      push:
+        - meta_scope: meta.table.link.writeml-toml
+
+        # Next Table
+        - include: pop-next-table
+
+        # Comments
+        - include: comment
+
+        # Table-Specific Key/Value Pairs
+        - include: link-key-value-pairs
+
+        # Any Other Key/Value Pairs
+        - include: key-value-pair
+
+  # Table Array
+  table-array:
+    - match: '^\s*(\[\[)\s*'
+      captures:
+        1: punctuation.token.begin.writeml-toml
+      push:
+        - meta_scope: meta.table.array.writeml-toml
+
+        # Key
+        - include: key-parts
+
+        # Closing Brackets
+        - match: '\s*(\]\])'
+          captures:
+            1: punctuation.token.end.writeml-toml
+          set:
+            - meta_scope: meta.table.array.writeml-toml
+
+            # Next Table
+            - include: pop-next-table
+
+            # Comments
+            - include: comment
+
+            # Key/Value Pairs
+            - include: key-value-pair
+
+  # Single Table
+  table:
+    - match: '^\s*(\[)\s*'
+      captures:
+        1: punctuation.token.begin.writeml-toml
+      push:
+        - meta_scope: meta.table.writeml-toml
+
+        # Key
+        - include: key-parts
+
+        # Closing Bracket
+        - match: '\s*(\])'
+          captures:
+            1: punctuation.token.end.writeml-toml
+          set:
+            - meta_scope: meta.table.writeml-toml
+
+            # Next Table
+            - include: pop-next-table
+
+            # Comments
+            - include: comment
+
+            # Key/Value Pairs
+            - include: key-value-pair
+
+  # REGION - TABLE-SPECIFIC KEY/VALUE PAIRS
+
+  # [document] Key/Value Pairs
+  # Note: Top-Level key/value pairs belong, implicitly, to the [document]
+  document-key-value-pairs:
+    # Title/Subtitle
+    - match: '(?=^\s*(sub)?title\s*=)'
+      push:
+        - meta_scope: kvp.document-title.writeml-toml
+
+        # Key/Value Pair
+        - include: key-value-pair
+
+        # Anything Else
+        - include: pop-anything
+
+  # [link-*] Key/Value Pairs
+  link-key-value-pairs:
+    # URLs
+    - match: '(?=^\s*(web|kindle|kobo|apple|google|nook)\s*=)'
+      push:
+        - meta_scope: kvp.link-url.writeml-toml
+
+        # Key/Value Pair
+        - include: key-value-pair
+
+        # Anything Else
+        - include: pop-anything
+
+  # REGION - KEY/VALUE PAIRS
+
+  # Any Key (Tables or Key/Value Pairs)
+  key-parts:
+    # Key Parts Dot Separator
+    - match: '\s*\.\s*'
+      scope: inline.key.bare.writeml-toml punctuation.token.writeml-toml
+
+    # Bare Key (or Key Part)
+    - match: '[A-Za-z0-9_\-]+'
+      scope: inline.key.bare.writeml-toml
+
+  # Key/Value Pair Assignment
+  key-value-pair:
+    # Key
+    - include: key-parts
+
+    # Assignment and Values
+    - match: '\s*(=)\s*'
+      captures:
+        1: punctuation.token.assignment.writeml-toml
+      push:
+        # Values
+        - include: bool
+        - include: date-time
+        - include: numbers
+        - include: multiline-basic-string
+        - include: multiline-literal-string
+        - include: basic-string
+        - include: literal-string
+
+        # Comments
+        - include: comment
+
+        # Everything Else
+        - match: '.*$'
+          pop: true
+
+  # Boolean
+  bool:
+    - match: 'true|false'
+      scope: constant.boolean.writeml-toml
+
+  # Date-Time
+  date-time:
+    # Full Date-Time
+    - match: '\d{4}-\d{2}-\d{2}(T|\s)\d{2}:\d{2}:\d{2}(\.\d*)?(Z|-\d{2}:\d{2})?'
+      scope: constant.date-time.writeml-toml
+
+    # Date Only
+    - match: '\d{4}-\d{2}-\d{2}'
+      scope: constant.date-time.writeml-toml
+
+    # Time Only
+    - match: '\d{2}:\d{2}:\d{2}(\.\d*)?(Z|-\d{2}:\d{2})?'
+      scope: constant.date-time.writeml-toml
+
+  # Numbers
+  numbers:
+    # Float
+    - match: '(\+|\-)?\d+(_\d+)*(\.)\d+(_\d+)*'
+      captures:
+        0: constant.numeric.float.writeml-toml
+        1: punctuation.token.writeml-toml
+        3: punctuation.token.writeml-toml
+
+    # Integer
+    - match: '(\+|\-)?\d+(_\d+)*'
+      captures:
+        0: constant.numeric.integer.writeml-toml
+        1: punctuation.token.writeml-toml
+
+  # Basic Strings
+  multiline-basic-string:
+    - match: '"""'
+      scope: punctuation.token.begin.writeml-toml
+      push:
+        - meta_scope: inline.string.basic.multiline.writeml-toml
+
+        # Escaped Chars
+        - match: '(\\)(["\\])'
+          captures:
+            1: punctuation.token.writeml-toml
+            2: string.writeml-toml
+
+        # Closing Quotes
+        - match: '"""'
+          scope: punctuation.token.end.writeml-toml
+          pop: true
+
+        # String
+        - match: '.'
+          scope: string.multiline.writeml-toml
+
+  basic-string:
+    - match: '"'
+      scope: punctuation.token.begin.writeml-toml
+      push:
+        - meta_scope: inline.string.basic.writeml-toml
+
+        # EOL
+        - include: pop-eol
+
+        # Escaped Chars
+        - match: '(\\)(["\\])'
+          captures:
+            1: punctuation.token.writeml-toml
+            2: string.writeml-toml
+
+        # Closing Quote
+        - match: '"'
+          scope: punctuation.token.end.writeml-toml
+          pop: true
+
+        # String
+        - match: '.'
+          scope: string.writeml-toml
+
+  # Literal Strings
+  multiline-literal-string:
+    - match: ''''''''
+      scope: punctuation.token.begin.writeml-toml
+      push:
+        - meta_scope: inline.string.literal.multiline.writeml-toml
+
+        # Closing Quotes
+        - match: ''''''''
+          scope: punctuation.token.end.writeml-toml
+          pop: true
+
+        # String
+        - match: '.'
+          scope: string.multiline.writeml-toml
+
+  literal-string:
+    - match: ''''
+      scope: punctuation.token.begin.writeml-toml
+      push:
+        - meta_scope: inline.string.literal.writeml-toml
+
+        # EOL
+        - include: pop-eol
+
+        # Closing Quote
+        - match: ''''
+          scope: punctuation.token.end.writeml-toml
+          pop: true
+
+        # String
+        - match: '.'
+          scope: string.writeml-toml
+
+  # REGION - MISCELLANEOUS
+
+  # Pop at End of Line
+  pop-eol:
+    - match: '$'
+      pop: true
+
+  # Pop Before Next Table
+  pop-next-table:
+    - match: '(?=^\s*\[)'
+      pop: true
+
+  # Pop On Anything
+  pop-anything:
+    - match: ''
+      pop: true
+
+  # Comments
+  comment:
+    - match: '\s*((#)(.*))$'
+      captures:
+        1: meta.comment.writeml-toml
+        2: punctuation.token.writeml-toml
+        3: string.writeml-toml

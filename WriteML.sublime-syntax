@@ -322,15 +322,9 @@ contexts:
   # Configuration Block
   configuration-block:
     - match: '^\s*---\s*$'
-      scope: markup.token.begin.writeml
-      push:
-        - meta_scope: meta.configuration-block.writeml
-        - meta_content_scope: source.writeml-toml
-
-        # Closing Line
-        - match: '^\s*---\s*$'
-          scope: markup.token.end.writeml
-          pop: true
-
-        # TOML
-        - include: scope:source.writeml-toml
+      scope: meta.configuration-block.writeml markup.token.begin.writeml
+      embed: scope:source.writeml-toml
+      embed_scope: meta.configuration-block.writeml
+      escape: '^\s*---\s*$'
+      escape_captures:
+        0: meta.configuration-block.writeml markup.token.end.writeml

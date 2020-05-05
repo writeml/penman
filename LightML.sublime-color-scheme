@@ -168,18 +168,24 @@
             "foreground": "var(blue100)"
         },
 
-        // TOML
+        // WriteML TOML
 
         {
             "name": "All",
-            "scope": "source.toml, source.toml punctuation.definition, source.toml meta.tag string",
+            "scope": "source.writeml-toml",
             "foreground": "var(grey100)"
         },
 
         {
             "name": "Hash Tokens",
-            "scope": "source.toml comment punctuation.definition",
+            "scope": "source.writeml-toml meta.comment punctuation.token",
             "foreground": "var(grey90)"
+        },
+
+        {
+            "name": "String Text",
+            "scope": "source.writeml-toml inline.string string",
+            "foreground": "var(black100)"
         },
 
         {
@@ -189,15 +195,15 @@
         },
 
         {
-            "name": "String Text",
-            "scope": "source.toml string",
-            "foreground": "var(black100)"
+            "name": "Document Title Text",
+            "scope": "source.writeml-toml kvp.document-title string",
+            "font_style": "bold"
         },
 
         {
-            "name": "Invalid Markup",
-            "scope": "source.toml invalid",
-            "foreground": "var(pastelred100)"
+            "name": "Link URL Text",
+            "scope": "source.writeml-toml kvp.link-url inline.string string",
+            "foreground": "var(blue100)"
         }
     ]
 }
