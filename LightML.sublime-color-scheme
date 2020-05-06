@@ -26,9 +26,9 @@
 
         "purple100": "#9F569F",
 
-        "red100": "#FF0000",
-        "pastelred100": "#EA4850",
-        "pastelred50": "color(var(pastelred100) alpha(0.7))",
+        "red100": "#EA4850",
+        "red70": "color(var(red100) alpha(0.7))",
+        "realred100": "#FF0000",
 
         "orange100": "#FF9000",
         "orange50": "color(var(orange100) alpha(0.5))"
@@ -51,7 +51,7 @@
 
         "line_diff_modified": "var(orange50)",
         "line_diff_added": "var(blue35)",
-        "line_diff_deleted": "var(pastelred50)",
+        "line_diff_deleted": "var(red70)",
 
         "line_highlight": "var(grey10)",
 
@@ -88,7 +88,7 @@
         // Misc
 
         "accent": "var(blue60)",
-        "misspelling": "var(red100)",
+        "misspelling": "var(realred100)",
         "shadow": "var(white100)"
     },
 

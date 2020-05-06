@@ -14,7 +14,7 @@ class NewFileDefaultsEventListener(sublime_plugin.EventListener):
 # end class
 
 def SetNewFileDefaults(view):
-    # do nothing if this file already has a location on disk
+    # do nothing if this is not a new, unsaved file
     if FileOnDisk(view):
         return;
     # end if
@@ -41,6 +41,7 @@ def SetNewFileDefaults(view):
             view_settings.set("default_extension", default_ext)
         else:
             view_settings.erase("default_extension")
+        # end if
     # end if
 # end def
 

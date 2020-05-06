@@ -7,7 +7,9 @@
     //   2) Otherwise, Sublime Text will use the directory of the most recently
     //      referenced file as the starting directory
     //
-    // This option, if set, will replace item #1 above.
+    // This option, if set, will replace item #1 above. Also, note that all of
+    // this applies to the initial starting directory of the Open File dialog
+    // as well.
     "default_directory": "",
 
     // When saving new plain-text files, Sublime Text does not set a default
